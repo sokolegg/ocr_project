@@ -1,25 +1,10 @@
-# This script can convert docx, doc 2 pdf
+# This script can convert docx, doc, xls, xlsx .. to pdf
 # You need python=3.6
-# textract, docx, fpdf
+# textract, fpdf
 
 import sys
-import docx
 import textract
 from fpdf import FPDF
-
-def docx2str(filename):
-	doc = docx.Document(filename)
-	text = []
-	for para in doc.paragraphs:
-		text.append(para.text)
-	return '\n'.join(text)
-
-def xlsx2str(filename):
-	text = textract.process(filename)
-	return str(text)
-
-def doc2pdf(filename):
-	pass
 
 def str2pdf(str_obj, filename='string.pdf'):   
 	pdf = FPDF()
@@ -29,15 +14,15 @@ def str2pdf(str_obj, filename='string.pdf'):
 	pdf.output(filename)
 	return open(filename, "rb").read()
 
+def file2str(filename):
+	text = textract.process(filename)
+	return str(text)
+
 if __name__ == '__main__':
 	args = sys.argv[1:]
-	# if file.endswith('.doc'):
 	file_in = args[0]
 	file_out = args[1]
-	if file_in.endswith('xlsx'):
-		text =xlsx2str(file_in)
-	if file_in.endswith('docx'):
-		text = docx2str(file_in)
+	text = file2str(file_in)
 	print('Text in file ', file_in, ' : ', text[:50], '...')
 	pdf = str2pdf(text, file_out)
 	print('Pdf : ', pdf[:50], '... saved as: ', file_out)
