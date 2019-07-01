@@ -1,13 +1,27 @@
-# COPY ANTIWORD IN C://antiword
-# ADD ANTIWORD TO PATH
+# Description
+This tool is for extracting and converting text
+
+# Dependecies
+1. textract - for extractring text from different formats in Python 
+https://textract.readthedocs.io/en/stable/
+2. antiword - Antiword converts the binary files from Word 2, 6, 7, 97, 2000, 2002 and 2003 to plain text and to PostScript TM
+http://www.winfield.demon.nl/
+3. unrtf - UnRTF is a command-line program written in C which converts documents in Rich Text Format (.rtf) to HTML, LaTeX, troff macros, and RTF itsel
+https://www.gnu.org/software/unrtf/
+
+
+# Installing
+1. copy atiword in C://antiword
+2. add antiword folder (C://antiword) to PATH:
 export ANTIWORD_PATH="C:\\antiword"
 export PATH=$PATH:$ANTIWORD_PATH
-
-# INSTALL TEXTRACT FOR WINDOWS
+3. install textract
 cd textract 
 pip install .
 
-# USAGE
+# Usage
 python converter.py ./test_files/test.docx test_docx.pdf
 python converter.py ./test_files/test.xlsx test_xlsx.pdf
 python converter.py ./test_files/test.doc test_doc.pdf
+python converter.py ./test_files/test.xls test_xls.pdf
+python converter.py ./test_files/test.rtf test_rtf.pdf
