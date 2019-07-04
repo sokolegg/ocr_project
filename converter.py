@@ -6,6 +6,7 @@ import sys
 import textract
 from fpdf import FPDF
 import os
+import string
 
 def str2pdf(str_obj, filename='last_text.pdf'):   
 	pdf = FPDF()
@@ -22,8 +23,25 @@ def str2txt(str_obj, filename='last_text.txt'):
 	return str_obj
 
 def file2str(filename):
-	text = textract.process(filename)
-	return remove_rtf_info(text.decode('utf-8'))
+	text = textract.process(filename).decode('utf-8')
+	if filename.endswith('.rtf'):
+		text = remove_rtf_info(text)
+	text = filter_str(text)
+	return text
+
+def filter_str(str_obj):
+	delete_if_repeat = list('\t\n\r' + ' ' + string.punctuation)
+	previous_symbol = None
+	new_str_obj = []
+	for symbol in str_obj:
+		if symbol in delete_if_repeat and previous_symbol in delete_if_repeat:
+			continue
+		else:
+			delimeter = ' ' if symbol in delete_if_repeat and symbol not in ('\t\n\r ') else ''
+			new_str_obj.append(f"{symbol}{delimeter}")
+		previous_symbol = symbol
+	return ''.join(new_str_obj)
+
 
 def remove_rtf_info(str_obj):
 	return str_obj.split('-----------------')[-1]
