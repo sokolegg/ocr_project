@@ -1,9 +1,0 @@
-
-This is hard
-xls or xlsx
-text test
-Table can contain numbers, formulas, plots, images with text
-num 1. 0 2. 0 3. 0
-square 1. 0 4. 0 9. 0
-Image also can be in Excel document
-SECOND LIST

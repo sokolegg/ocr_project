@@ -3,18 +3,14 @@
 # textract, fpdf
 
 import sys
-import textract
-from fpdf import FPDF
+import xlrd
+from weasyprint import HTML
 import os
 import string
 
 def str2pdf(str_obj, filename='last_text.pdf'):   
-	pdf = FPDF()
-	pdf.add_page()
-	pdf.set_font("Arial", size=12)
-	pdf.cell(200, 10, txt=str_obj, ln=1, align="C")
-	pdf.output(filename)
-	return open(filename, "rb").read()
+	html = HTML(string=str_obj).write_pdf(filename)
+	return str_obj
 
 def str2txt(str_obj, filename='last_text.txt'):
 	txt = open(filename, 'w')
@@ -22,12 +18,16 @@ def str2txt(str_obj, filename='last_text.txt'):
 	txt.close()
 	return str_obj
 
-def file2str(filename):
-	text = textract.process(filename).decode('utf-8')
-	if filename.endswith('.rtf'):
-		text = remove_rtf_info(text)
-	text = filter_str(text)
-	return text
+def xls2str(filename):
+	str_obj = ""
+	book = xlrd.open_workbook(filename)
+	for sheet_index in range(book.nsheets):
+		sheet =  book.sheet_by_index(sheet_index)
+		for row_num in range(sheet.nrows):
+			row = sheet.row(row_num)
+			values = [str(el.value) for el in row]
+			str_obj += ','.join(values) + '\n'
+	return str_obj
 
 def filter_str(str_obj):
 	delete_if_repeat = list('\t\n\r' + ' ' + string.punctuation)
@@ -37,18 +37,17 @@ def filter_str(str_obj):
 		if symbol in delete_if_repeat and previous_symbol in delete_if_repeat:
 			continue
 		else:
-			delimeter = ' ' if symbol in delete_if_repeat and symbol not in ('\t\n\r ') else ''
-			new_str_obj.append(f"{symbol}{delimeter}")
+			new_str_obj.append(f"{symbol}")
 		previous_symbol = symbol
 	return ''.join(new_str_obj)
 
 
-def remove_rtf_info(str_obj):
-	return str_obj.split('-----------------')[-1]
-
-
 def convert_file(file_in, file_out):
-	text = file2str(file_in)
+	if not file_in.endswith('.xls'):
+		print('Tool works only with xls format')
+		return
+	text = xls2str(file_in)
+	text = filter_str(text)
 	print('Text in file ', file_in, ' : ', text[:50], '...')
 
 	# write to specific format
