@@ -4,7 +4,7 @@
 
 import sys
 import xlrd
-from weasyprint import HTML
+# from weasyprint import HTML
 import os
 import string
 
