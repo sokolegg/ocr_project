@@ -10,7 +10,7 @@ from weasyprint import HTML
 
 
 def image_to_str(img):
-	text = pytesseract.image_to_string(Image.fromarray(img))
+	text = pytesseract.image_to_string(Image.open(img))
 	return text
 
 
