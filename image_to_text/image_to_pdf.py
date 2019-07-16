@@ -33,9 +33,6 @@ def str_to_pdf(str_obj, filename='last_text.pdf'):
 
 
 def convert_file(file_in, file_out):
-	if not file_in.endswith('.pdf'):
-		print('Tool works only with pdf format')
-		return
 	text = image_to_str(file_in)
 	text = filter_str(text)
 	print('Text in file ', file_in, ' : ', text[:50], '...')

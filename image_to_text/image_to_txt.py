@@ -34,9 +34,6 @@ def str_to_txt(text, filename):
 
 
 def convert_file(file_in, file_out):
-	if not file_in.endswith('.txt'):
-		print('Tool works only with txt format')
-		return
 	text = image_to_str(file_in)
 	text = filter_str(text)
 	print('Text in file ', file_in, ' : ', text[:50], '...')
