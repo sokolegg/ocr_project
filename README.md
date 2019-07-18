@@ -21,6 +21,7 @@ Pipeline for that problem:
 
 # Usage
 1. Prepare your dataset in csv like (or use labeled folders):
+```csv
 files.csv
 
 pdf, target
@@ -28,6 +29,7 @@ data_dir\good_ticket1.pdf, 0
 data_dir\bad_ticket1.pdf, 1
 data_dir\bad_ticket2.pdf, 1
 ....
+```
 
 2. Right script
 ```python

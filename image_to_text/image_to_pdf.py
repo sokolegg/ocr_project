@@ -27,7 +27,7 @@ def filter_str(str_obj):
 	return ''.join(new_str_obj)
 
 
-def str_to_pdf(str_obj, filename='last_text.pdf'):   
+def str_to_pdf(str_obj, filename):   
 	html = HTML(string=str_obj).write_pdf(filename)
 	return str_obj
 
