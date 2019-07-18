@@ -30,7 +30,7 @@ data_dir\bad_ticket2.pdf, 1
 ....
 
 2. Right script
-'''python
+```python
 import ocr_pipe
 
 preprocessor = ocr_pipe.PDFToVectors(words_num = 50)
@@ -54,7 +54,7 @@ model.fit()
 
 # Train your model!
 
-'''
+```
 
 
 
