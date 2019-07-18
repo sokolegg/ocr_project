@@ -20,16 +20,15 @@ def text_to_words(text):
 
 def text_to_vectors(text, words_num, fill_all=True):
 	words = text_to_words(text)
-	vectors = None
+	vectors = []
 	for word in words:
 		# stop is filled
-		if len(vectors) > words_num:
-			return vectors
+		if len(vectors) < words_num:
 		# fill by next vector
-		vector = word_to_vector(word)
-		if vector is None:
-			continue
-		vectors = vector if vectors is None else np.vstack([vector, vectors])
+			vector = word_to_vector(word)
+			if vector is None:
+				continue
+			vectors = vector if vectors is [] else np.vstack([vector, vectors]) 
 
 	if fill_all:
 		# fill to correct size
