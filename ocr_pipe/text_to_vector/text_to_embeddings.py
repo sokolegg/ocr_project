@@ -12,7 +12,7 @@ def word_to_vector(word):
 
 def text_to_words(text):
 	for char in string.punctuation:
-	text = text.replace(char, '')
+		text = text.replace(char, '')
 	text = text.lower()
 	words = text.split(' ')
 	return words
