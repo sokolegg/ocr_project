@@ -2,6 +2,7 @@ import gensim.downloader as api
 model = api.load("glove-wiki-gigaword-50")
 
 import string
+import numpy as np
 
 def is_word_in_vocab(word):
 	return word in model.vocab
@@ -17,22 +18,24 @@ def text_to_words(text):
 	words = text.split(' ')
 	return words
 
-def text_to_vectors(text, vectors_size, fill_all=True):
+def text_to_vectors(text, words_num, fill_all=True):
 	words = text_to_words(text)
-	vectors = []
+	vectors = None
 	for word in words:
+		# stop is filled
+		if len(vectors) > words_num:
+			return vectors
+		# fill by next vector
 		vector = word_to_vector(word)
 		if vector is None:
 			continue
-		vectors.append(vector)
-		if len(vectors) > vectors_size:
-			return vectors
+		vectors = vector if vectors is None else np.vstack([vector, vectors])
 
 	if fill_all:
 		# fill to correct size
-		while len(vectors) < vectors_size:
-			end_vector = word_to_vector('.')
-			vectors.append(end_vector)
+		while len(vectors) < words_num:
+			vector = word_to_vector('.')
+			vectors = vector if vectors is None else np.vstack([vector, vectors])
 	
 	return vectors
 

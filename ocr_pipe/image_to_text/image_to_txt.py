@@ -9,7 +9,10 @@ import string
 
 
 def image_to_str(img):
-	text = pytesseract.image_to_string(Image.open(img))
+	if isintance(img, str):
+		# upload with path to file
+		img = Image.open(img)
+	text = pytesseract.image_to_string(img)
 	return text
 
 
