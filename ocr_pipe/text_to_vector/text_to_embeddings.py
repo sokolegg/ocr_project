@@ -36,8 +36,10 @@ def text_to_vectors(text, words_num, fill_all=True):
 
 	if fill_all:
 		# fill to correct size
+		if vectors is None:
+			vectors = word_to_vector('.').reshape(1, -1)
 		while len(vectors) < words_num:
-			vector = word_to_vector('.')
+			vector = word_to_vector('.').reshape(1, -1)
 			vectors = vector if vectors is None else np.vstack([vector, vectors])
 	
 	return vectors
