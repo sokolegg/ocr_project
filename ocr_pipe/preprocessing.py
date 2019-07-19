@@ -24,7 +24,7 @@ class PDFToVectors():
 			text = image_to_text.image_to_str(img)
 			texts += (text + ' ')
 
-		print('Processed full text: %s', % texts[:100])
+		print('Processed full text: %s' % texts[:100])
 		# generate vectors
 		vectors = None
 		for i in range(self.vectors_num):
@@ -34,7 +34,7 @@ class PDFToVectors():
 			flatten_vector = text_vector.reshape(1, -1)
 			vectors = flatten_vector if vectors is None else np.vstack([flatten_vector, vectors])
 
-		print('Processed %d vectors', self.vectors_num)
+		print('Processed %d vectors' % self.vectors_num)
 
 		return images, texts, vectors
 
