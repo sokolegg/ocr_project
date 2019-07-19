@@ -11,7 +11,7 @@ class PDFToVectors():
 	'''
 	def __init__(self, words_num=20, vectors_num=1000):
 		self.words_num = words_num
-		self.vectors_num  vectors_num
+		self.vectors_num = vectors_num
 
 	def process(self, inp):
 		# input is one pdf file
