@@ -31,6 +31,7 @@ def text_to_vectors(text, words_num, fill_all=True):
 		vector = word_to_vector(word)
 		if vector is None:
 			continue
+		vector = vector.reshape(1, -1)
 		vectors = vector if vectors is None else np.vstack([vector, vectors]) 
 
 	if fill_all:
